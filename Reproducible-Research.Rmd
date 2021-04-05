@@ -29,8 +29,7 @@ averages <- aggregate(x=list(steps=data$steps), by=list(interval=data$interval),
                       FUN=mean, na.rm=TRUE)
 ggplot(data=averages, aes(x=interval, y=steps)) +      theme_classic() +
     geom_line(col='Red') +
-    xlab("5-minute interval") +
-    ylab("average number of steps taken") 
+    labs("5-minute interval", y="average number of steps taken") 
 ```
 
 On average across all the days in the dataset, the 5-minute interval contains
@@ -74,16 +73,10 @@ mean(total.steps)
 median(total.steps)
 ```
 
-Mean and median values are higher after imputing missing data. The reason is
-that in the original data, there are some days with `steps` values `NA` for 
-any `interval`. The total number of steps taken in such days are set to 0s by
-default. However, after replacing missing `steps` values with the mean `steps`
-of associated `interval` value, these 0 values are removed from the histogram
-of total number of steps taken each day.
+.
 
 ## Are there differences in activity patterns between weekdays and weekends?
-First, let's find the day of the week for each measurement in the dataset. In
-this part, we use the dataset with the filled-in values.
+
 
 ```{r}
 weekday.or.weekend <- function(date) {
@@ -104,5 +97,5 @@ on weekdays and weekends.
 ```{r}
 averages <- aggregate(steps ~ interval + day, data=filled.data, mean)
 ggplot(averages, aes(interval, steps)) + geom_line(col='Red') + facet_grid(day ~ .) + 
-    xlab("5-minute interval") + ylab("Number of steps") +theme_classic()
+    labs(x="5-minute interval",y="Number of steps") +theme_classic()
 ```
